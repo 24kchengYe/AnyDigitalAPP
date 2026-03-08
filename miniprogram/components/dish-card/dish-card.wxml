@@ -1,0 +1,11 @@
+<wxs src="../../utils/price.wxs" module="price" />
+<view class="dish-card">
+  <view class="image-wrapper" bindtap="onTap">
+    <image class="dish-image" src="{{dish.imageUrl || dish.image}}" mode="aspectFill" lazy-load></image>
+  </view>
+  <view class="dish-name">{{dish.name}}</view>
+  <view class="dish-card-bottom">
+    <view class="dish-price">¥{{price.yuan(dish.price)}}</view>
+    <view class="btn-add" bindtap="onAdd">+</view>
+  </view>
+</view>

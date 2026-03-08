@@ -1,0 +1,471 @@
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* ========== Member Card ========== */
+.member-card {
+  margin: 32rpx;
+  padding: 40rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #1a3a5c, #0d2137);
+  color: #fff;
+  box-shadow: 0 8rpx 32rpx rgba(26, 58, 92, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.member-card::after {
+  content: '';
+  position: absolute;
+  right: -40rpx;
+  top: -40rpx;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.member-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f7c948, #e6a817);
+  padding: 8rpx 24rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #1a3a5c;
+  margin-right: 20rpx;
+}
+
+.member-name {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.member-expiry {
+  font-size: 26rpx;
+  opacity: 0.75;
+}
+
+/* ========== Level Progress ========== */
+.level-section {
+  margin: 0 32rpx 24rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 32rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+.level-bar-wrap {
+  margin-bottom: 16rpx;
+}
+
+.level-bar {
+  height: 16rpx;
+  background: #e8e8e8;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.level-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1a3a5c, #2c5f8a);
+  border-radius: 8rpx;
+  transition: width 0.6s ease;
+}
+
+.level-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.level-current {
+  font-size: 24rpx;
+  color: #1a3a5c;
+  font-weight: 600;
+}
+
+.level-next {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.level-spent-info {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* ========== Benefits List ========== */
+.benefits-section {
+  margin: 0 32rpx 24rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 32rpx;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.benefit-item:last-child {
+  border-bottom: none;
+}
+
+.benefit-index {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: #1a3a5c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: bold;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.benefit-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.benefit-text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.benefit-value {
+  font-size: 26rpx;
+  color: #1a3a5c;
+  font-weight: 600;
+}
+
+/* ========== Growth Section ========== */
+.growth-section {
+  margin: 0 32rpx 32rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 32rpx;
+}
+
+.growth-cards {
+  display: flex;
+  gap: 16rpx;
+  overflow-x: auto;
+  padding-bottom: 8rpx;
+}
+
+.growth-card {
+  flex-shrink: 0;
+  width: 180rpx;
+  padding: 24rpx 16rpx;
+  border-radius: 16rpx;
+  background: #f8f8f8;
+  text-align: center;
+  border: 2rpx solid #e8e8e8;
+}
+
+.growth-card.unlocked {
+  background: rgba(26, 58, 92, 0.06);
+  border-color: #1a3a5c;
+}
+
+.growth-level {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.growth-card.unlocked .growth-level {
+  color: #1a3a5c;
+}
+
+.growth-req {
+  font-size: 20rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+
+.growth-perks {
+  font-size: 20rpx;
+  color: #666;
+}
+
+.growth-sep {
+  margin: 0 4rpx;
+  color: #ddd;
+}
+
+/* ========== Promo Hero (non-member) ========== */
+.promo-hero {
+  height: 420rpx;
+  background: linear-gradient(135deg, #1a3a5c, #0d2137);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.promo-hero::before {
+  content: '';
+  position: absolute;
+  left: -100rpx;
+  bottom: -100rpx;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.promo-hero::after {
+  content: '';
+  position: absolute;
+  right: -60rpx;
+  top: -60rpx;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.promo-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  margin-bottom: 24rpx;
+}
+
+.promo-price {
+  display: flex;
+  align-items: baseline;
+}
+
+.price-symbol {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.price-number {
+  font-size: 80rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.promo-sub {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  opacity: 0.85;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 8rpx 32rpx;
+  border-radius: 24rpx;
+}
+
+/* ========== Benefits Cards (non-member) ========== */
+.benefits-cards {
+  padding: 32rpx;
+}
+
+.benefit-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.benefit-icon-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+}
+
+.benefit-icon-text {
+  font-size: 40rpx;
+}
+
+.coupon-bg {
+  background: rgba(26, 58, 92, 0.1);
+}
+
+.discount-bg {
+  background: rgba(46, 204, 113, 0.1);
+}
+
+.commission-bg {
+  background: rgba(243, 156, 18, 0.1);
+}
+
+.gift-bg {
+  background: rgba(155, 89, 182, 0.1);
+}
+
+.benefit-card-info {
+  flex: 1;
+}
+
+.benefit-card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.benefit-card-desc {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.5;
+}
+
+.benefit-arrow {
+  font-size: 28rpx;
+  color: #ccc;
+  margin-left: 12rpx;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.benefit-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+/* Detail Expandable */
+.benefit-detail {
+  background: #f8fafb;
+  margin: -12rpx 32rpx 24rpx;
+  padding: 28rpx;
+  border-radius: 0 0 20rpx 20rpx;
+  border-top: 2rpx solid #e8edf2;
+}
+
+.detail-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a3a5c;
+  margin-bottom: 16rpx;
+}
+
+.detail-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.7;
+}
+
+.detail-table {
+  margin-bottom: 16rpx;
+}
+
+.detail-row {
+  display: flex;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.detail-row.header-row {
+  border-bottom: 2rpx solid #1a3a5c;
+}
+
+.detail-row.header-row .detail-col {
+  font-weight: 600;
+  color: #333;
+  font-size: 24rpx;
+}
+
+.detail-col {
+  flex: 1;
+  text-align: center;
+  font-size: 24rpx;
+  color: #555;
+}
+
+.detail-col.highlight {
+  color: #1a3a5c;
+  font-weight: 600;
+}
+
+.detail-col.highlight-red {
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+.detail-example {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.7;
+  border-left: 6rpx solid #f7c948;
+}
+
+.detail-example-title {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+/* ========== Bottom Button ========== */
+.bottom-placeholder {
+  height: 140rpx;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16rpx 32rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.buy-btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  background: #1a3a5c;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 44rpx;
+  border: none;
+  letter-spacing: 2rpx;
+}
+
+.buy-btn::after {
+  border: none;
+}

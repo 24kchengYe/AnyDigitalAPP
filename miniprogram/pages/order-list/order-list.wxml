@@ -1,0 +1,103 @@
+<view class="order-list-page">
+  <!-- Tab Bar -->
+  <view class="tab-bar">
+    <view
+      class="tab-item {{activeTab === '' ? 'active' : ''}}"
+      data-status=""
+      bindtap="switchTab"
+    >全部</view>
+    <view
+      class="tab-item {{activeTab === 'pending' ? 'active' : ''}}"
+      data-status="pending"
+      bindtap="switchTab"
+    >待付款</view>
+    <view
+      class="tab-item {{activeTab === 'paid' ? 'active' : ''}}"
+      data-status="paid"
+      bindtap="switchTab"
+    >待发货</view>
+    <view
+      class="tab-item {{activeTab === 'shipped' ? 'active' : ''}}"
+      data-status="shipped"
+      bindtap="switchTab"
+    >已发货</view>
+    <view
+      class="tab-item {{activeTab === 'completed' ? 'active' : ''}}"
+      data-status="completed"
+      bindtap="switchTab"
+    >已完成</view>
+  </view>
+
+  <!-- Loading Indicator -->
+  <view class="loading" wx:if="{{loading && orders.length === 0}}">
+    <view class="loading-icon"></view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty-state" wx:if="{{!loading && orders.length === 0}}">
+    <text class="empty-icon-text">📦</text>
+    <text class="empty-text">暂无订单</text>
+  </view>
+
+  <!-- Order List -->
+  <view class="order-list" wx:if="{{orders.length > 0}}">
+    <view class="order-card" wx:for="{{orders}}" wx:key="_id">
+      <!-- Order Header -->
+      <view class="order-header">
+        <view class="order-id">订单号：{{item.orderIdShort}}</view>
+        <view class="order-status status-{{item.status}}">{{item.statusText}}</view>
+      </view>
+
+      <!-- Order Time -->
+      <view class="order-time">{{item.createTimeStr}}</view>
+
+      <!-- Items Summary -->
+      <view class="order-items-summary">
+        <text class="items-text">{{item.itemsSummary}}</text>
+      </view>
+
+      <!-- Express Info (for shipped orders) -->
+      <view class="express-info" wx:if="{{item.status === 'shipped' && item.expressNo}}">
+        <view class="express-row">
+          <text class="express-label">快递公司：</text>
+          <text class="express-value">{{item.expressCompany}}</text>
+        </view>
+        <view class="express-row">
+          <text class="express-label">快递单号：</text>
+          <text class="express-value">{{item.expressNo}}</text>
+          <view class="btn-copy" data-no="{{item.expressNo}}" bindtap="copyExpressNo">复制</view>
+        </view>
+      </view>
+
+      <!-- Order Footer -->
+      <view class="order-footer">
+        <view class="order-amount">
+          <text class="amount-label">实付：</text>
+          <text class="amount-value">¥{{item.displayPrice}}</text>
+        </view>
+
+        <view class="order-actions">
+          <view
+            class="btn-action btn-cancel"
+            wx:if="{{item.status === 'pending'}}"
+            data-id="{{item._id}}"
+            bindtap="cancelOrder"
+          >取消订单</view>
+          <view
+            class="btn-action btn-confirm"
+            wx:if="{{item.status === 'shipped'}}"
+            data-id="{{item._id}}"
+            bindtap="confirmReceive"
+          >确认收货</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Bottom Loading / No More -->
+  <view class="bottom-tip" wx:if="{{orders.length > 0}}">
+    <text wx:if="{{loading}}">加载中...</text>
+    <text wx:elif="{{noMore}}">没有更多了</text>
+  </view>
+</view>

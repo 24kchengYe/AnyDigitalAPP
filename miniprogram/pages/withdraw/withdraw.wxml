@@ -1,0 +1,62 @@
+<view class="container">
+  <!-- Balance Display Card -->
+  <view class="balance-card">
+    <view class="balance-label">奖励余额</view>
+    <view class="balance-amount">¥{{balance}}</view>
+  </view>
+
+  <!-- Withdraw Input Section -->
+  <view class="input-section">
+    <view class="input-title">提现金额（元）</view>
+    <view class="input-row">
+      <text class="input-prefix">¥</text>
+      <input
+        class="amount-input"
+        type="digit"
+        placeholder="请输入提现金额"
+        value="{{amount}}"
+        bindinput="onAmountInput"
+      />
+    </view>
+    <view class="input-actions">
+      <text class="withdraw-all" bindtap="withdrawAll">全部提现</text>
+    </view>
+    <view class="input-hint">最低提现金额 ¥{{minAmount}}</view>
+  </view>
+
+  <!-- Divider -->
+  <view class="divider"></view>
+
+  <!-- Withdrawal Records Section -->
+  <view class="records-section">
+    <view class="section-title">提现历史</view>
+
+    <!-- Empty State -->
+    <view class="empty-state" wx:if="{{records.length === 0 && !loading}}">
+      <text class="empty-text">暂无提现记录</text>
+    </view>
+
+    <!-- Record List -->
+    <view class="record-list" wx:if="{{records.length > 0}}">
+      <view class="record-item" wx:for="{{records}}" wx:key="_id">
+        <view class="record-left">
+          <view class="record-amount">¥{{item.amount}}</view>
+          <view class="record-time">{{item.time}}</view>
+        </view>
+        <view class="record-right">
+          <view class="record-status status-{{item.status}}">
+            {{item.status === 'pending' ? '待审核' : item.status === 'approved' ? '已通过' : item.status === 'paid' ? '已打款' : '已拒绝'}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Note -->
+  <view class="note-text">提现将在1-3个工作日内到账</view>
+
+  <!-- Submit Button -->
+  <view class="submit-btn-wrap">
+    <button class="submit-btn" bindtap="submitWithdraw" loading="{{submitting}}">申请提现</button>
+  </view>
+</view>

@@ -1,0 +1,259 @@
+<view class="container">
+  <!-- Already a member -->
+  <block wx:if="{{isMember}}">
+    <view class="member-card">
+      <view class="card-top">
+        <view class="member-badge">Lv.{{memberLevel}} 会员</view>
+        <view class="member-name">{{userInfo.nickName || '会员用户'}}</view>
+      </view>
+      <view class="member-expiry">有效期至：{{memberExpiry}}</view>
+    </view>
+
+    <!-- Level Progress -->
+    <view class="level-section">
+      <view class="section-title">等级进度</view>
+      <view class="level-bar-wrap">
+        <view class="level-bar">
+          <view class="level-bar-fill" style="width: {{levelProgress}}%"></view>
+        </view>
+        <view class="level-labels">
+          <text class="level-current">Lv.{{memberLevel}}</text>
+          <text class="level-next" wx:if="{{nextLevel}}">Lv.{{nextLevel}}</text>
+          <text class="level-next" wx:else>已满级</text>
+        </view>
+      </view>
+      <view class="level-spent-info">
+        <text>累计消费：¥{{totalSpentYuan}}</text>
+        <text wx:if="{{nextLevel}}"> · 再消费¥{{spentToNextYuan}}升级</text>
+      </view>
+    </view>
+
+    <!-- Current Benefits -->
+    <view class="benefits-section">
+      <view class="section-title">我的权益</view>
+      <view class="benefit-item">
+        <view class="benefit-index">1</view>
+        <view class="benefit-content">
+          <view class="benefit-text">下单优惠</view>
+          <view class="benefit-value">立减 {{selfDiscountPct}}%</view>
+        </view>
+      </view>
+      <view class="benefit-item">
+        <view class="benefit-index">2</view>
+        <view class="benefit-content">
+          <view class="benefit-text">分享奖励</view>
+          <view class="benefit-value">好友消费享 {{referralRatePct}}% 奖励</view>
+        </view>
+      </view>
+      <view class="benefit-item">
+        <view class="benefit-index">3</view>
+        <view class="benefit-content">
+          <view class="benefit-text">开通好礼</view>
+          <view class="benefit-value">赠蟹券一张</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Growth Info -->
+    <view class="growth-section">
+      <view class="section-title">成长体系</view>
+      <view class="growth-cards">
+        <view class="growth-card {{memberLevel >= item.level ? 'unlocked' : ''}}" wx:for="{{levels}}" wx:key="level">
+          <view class="growth-level">Lv.{{item.level}}</view>
+          <view class="growth-req">{{item.thresholdYuan > 0 ? '消费满¥' + item.thresholdYuan : '开通即享'}}</view>
+          <view class="growth-perks">
+            <text>优惠 {{item.selfDiscountPct}}%</text>
+            <text class="growth-sep">|</text>
+            <text>分享 {{item.referralRatePct}}%</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- Not a member -->
+  <block wx:else>
+    <view class="promo-hero">
+      <view class="promo-title">成为会员，享受专属权益</view>
+      <view class="promo-price">
+        <text class="price-symbol">¥</text>
+        <text class="price-number">20</text>
+      </view>
+      <view class="promo-sub">开通即送一只螃蟹</view>
+    </view>
+
+    <view class="benefits-cards">
+      <view class="benefit-card" bindtap="toggleDetail" data-key="crab">
+        <view class="benefit-icon-wrap coupon-bg">
+          <text class="benefit-icon-text">🦀</text>
+        </view>
+        <view class="benefit-card-info">
+          <view class="benefit-card-title">开通即送一只螃蟹</view>
+          <view class="benefit-card-desc">开通会员立得赠蟹券，下单可用</view>
+        </view>
+        <text class="benefit-arrow {{expandedKey === 'crab' ? 'expanded' : ''}}">></text>
+      </view>
+      <view class="benefit-detail" wx:if="{{expandedKey === 'crab'}}">
+        <view class="detail-text">开通会员后自动获得赠蟹券一张，可在下单时抵扣使用。赠蟹券有效期90天，不可提现。</view>
+      </view>
+
+      <view class="benefit-card" bindtap="toggleDetail" data-key="discount">
+        <view class="benefit-icon-wrap discount-bg">
+          <text class="benefit-icon-text">🏷</text>
+        </view>
+        <view class="benefit-card-info">
+          <view class="benefit-card-title">自购享折扣</view>
+          <view class="benefit-card-desc">会员下单立减，消费越多折扣越高</view>
+        </view>
+        <text class="benefit-arrow {{expandedKey === 'discount' ? 'expanded' : ''}}">></text>
+      </view>
+      <view class="benefit-detail" wx:if="{{expandedKey === 'discount'}}">
+        <view class="detail-title">各等级自购折扣</view>
+        <view class="detail-table">
+          <view class="detail-row header-row">
+            <text class="detail-col">等级</text>
+            <text class="detail-col">消费门槛</text>
+            <text class="detail-col">自购折扣</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.1</text>
+            <text class="detail-col">开通即享</text>
+            <text class="detail-col highlight">0.5%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.2</text>
+            <text class="detail-col">消费满¥2000</text>
+            <text class="detail-col highlight">0.8%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.3</text>
+            <text class="detail-col">消费满¥5000</text>
+            <text class="detail-col highlight">1.0%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.4</text>
+            <text class="detail-col">消费满¥15000</text>
+            <text class="detail-col highlight">1.5%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.5</text>
+            <text class="detail-col">消费满¥30000</text>
+            <text class="detail-col highlight">2.0%</text>
+          </view>
+        </view>
+        <view class="detail-text">折扣在下单结算时自动抵扣，无需操作。</view>
+      </view>
+
+      <view class="benefit-card" bindtap="toggleDetail" data-key="share">
+        <view class="benefit-icon-wrap commission-bg">
+          <text class="benefit-icon-text">💰</text>
+        </view>
+        <view class="benefit-card-info">
+          <view class="benefit-card-title">分享赚钱 !</view>
+          <view class="benefit-card-desc">好友下单，你赚2%~6%奖励金</view>
+        </view>
+        <text class="benefit-arrow {{expandedKey === 'share' ? 'expanded' : ''}}">></text>
+      </view>
+      <view class="benefit-detail" wx:if="{{expandedKey === 'share'}}">
+        <view class="detail-title">各等级分享奖励比例</view>
+        <view class="detail-table">
+          <view class="detail-row header-row">
+            <text class="detail-col">等级</text>
+            <text class="detail-col">消费门槛</text>
+            <text class="detail-col">分享奖励</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.1</text>
+            <text class="detail-col">开通即享</text>
+            <text class="detail-col highlight-red">2%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.2</text>
+            <text class="detail-col">消费满¥2000</text>
+            <text class="detail-col highlight-red">3%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.3</text>
+            <text class="detail-col">消费满¥5000</text>
+            <text class="detail-col highlight-red">4%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.4</text>
+            <text class="detail-col">消费满¥15000</text>
+            <text class="detail-col highlight-red">5%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.5</text>
+            <text class="detail-col">消费满¥30000</text>
+            <text class="detail-col highlight-red">6%</text>
+          </view>
+        </view>
+        <view class="detail-example">
+          <text class="detail-example-title">举个例子</text>
+          <text>你是Lv.3会员，好友通过你的海报下单了¥500的螃蟹，你将获得 ¥500 x 4% = ¥20 的奖励金，可随时提现！</text>
+        </view>
+      </view>
+
+      <view class="benefit-card" bindtap="toggleDetail" data-key="growth">
+        <view class="benefit-icon-wrap gift-bg">
+          <text class="benefit-icon-text">⭐</text>
+        </view>
+        <view class="benefit-card-info">
+          <view class="benefit-card-title">会员成长体系</view>
+          <view class="benefit-card-desc">消费越多权益越好，自动升级</view>
+        </view>
+        <text class="benefit-arrow {{expandedKey === 'growth' ? 'expanded' : ''}}">></text>
+      </view>
+      <view class="benefit-detail" wx:if="{{expandedKey === 'growth'}}">
+        <view class="detail-title">5级成长体系</view>
+        <view class="detail-table">
+          <view class="detail-row header-row">
+            <text class="detail-col">等级</text>
+            <text class="detail-col">消费门槛</text>
+            <text class="detail-col">自购</text>
+            <text class="detail-col">分享</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.1</text>
+            <text class="detail-col">¥0</text>
+            <text class="detail-col">0.5%</text>
+            <text class="detail-col">2%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.2</text>
+            <text class="detail-col">¥2000</text>
+            <text class="detail-col">0.8%</text>
+            <text class="detail-col">3%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.3</text>
+            <text class="detail-col">¥5000</text>
+            <text class="detail-col">1.0%</text>
+            <text class="detail-col">4%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.4</text>
+            <text class="detail-col">¥1.5w</text>
+            <text class="detail-col">1.5%</text>
+            <text class="detail-col">5%</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-col">Lv.5</text>
+            <text class="detail-col">¥3w</text>
+            <text class="detail-col">2.0%</text>
+            <text class="detail-col">6%</text>
+          </view>
+        </view>
+        <view class="detail-text">系统根据累计消费金额自动升级，无需手动操作。等级终身有效。</view>
+      </view>
+    </view>
+
+    <view class="bottom-placeholder"></view>
+
+    <view class="bottom-bar">
+      <button class="buy-btn" bindtap="buyMembership">
+        立即开通会员 ¥20
+      </button>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,73 @@
+<wxs src="../../utils/price.wxs" module="price" />
+<view class="page-container">
+  <!-- Left Sidebar: Category List -->
+  <scroll-view class="sidebar" scroll-y>
+    <view
+      class="sidebar-item {{activeCategory === item ? 'active' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="*this"
+      data-category="{{item}}"
+      bindtap="scrollToCategory"
+    >
+      {{item}}
+    </view>
+  </scroll-view>
+
+  <!-- Right Content: Dish List -->
+  <scroll-view
+    class="content"
+    scroll-y
+    scroll-into-view="{{scrollTarget}}"
+    scroll-with-animation
+    bindscroll="onContentScroll"
+  >
+    <block wx:for="{{dishGroups}}" wx:key="category">
+      <view id="cat-{{index}}" class="dish-group">
+        <!-- Sticky Category Header -->
+        <view class="category-header">{{item.category}}</view>
+
+        <!-- Dish Items -->
+        <view
+          class="dish-item"
+          wx:for="{{item.dishes}}"
+          wx:for-item="dish"
+          wx:key="_id"
+        >
+          <!-- Top: Image + Name/Desc -->
+          <view class="dish-item-top">
+            <image
+              class="dish-image"
+              src="{{dish.imageUrl || dish.image}}"
+              mode="aspectFill"
+            ></image>
+            <view class="dish-text">
+              <view class="dish-name">{{dish.name}}</view>
+              <view class="dish-desc">{{dish.description}}</view>
+            </view>
+          </view>
+          <!-- Bottom: Price + Button -->
+          <view class="dish-bottom">
+            <view class="dish-price">¥{{price.yuan(dish.price)}}</view>
+            <view
+              class="btn-add-cart"
+              wx:if="{{!dish.quantity}}"
+              data-dish="{{dish}}"
+              bindtap="addToCart"
+            >+</view>
+            <view class="dish-actions" wx:else>
+              <view class="btn-minus" data-dish="{{dish}}" bindtap="removeFromCart">-</view>
+              <view class="dish-qty">{{dish.quantity}}</view>
+              <view class="btn-plus" data-dish="{{dish}}" bindtap="addToCart">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- Bottom Spacer -->
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <!-- Cart Bar -->
+  <cart-bar count="{{cartCount}}" total="{{cartTotal}}"></cart-bar>
+</view>

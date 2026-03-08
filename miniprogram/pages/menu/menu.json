@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "cart-bar": "/components/cart-bar/cart-bar"
+  },
+  "navigationBarTitleText": "商城"
+}

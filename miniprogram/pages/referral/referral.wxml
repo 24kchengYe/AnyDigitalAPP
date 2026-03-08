@@ -1,0 +1,111 @@
+<view class="container">
+  <!-- Stats Header -->
+  <view class="stats-header">
+    <view class="stat-item">
+      <view class="stat-number">{{stats.totalReferrals}}</view>
+      <view class="stat-label">推荐好友</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-number stat-highlight">¥{{stats.totalEarnings}}</view>
+      <view class="stat-label">累计赚取</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-number">¥{{stats.pendingEarnings}}</view>
+      <view class="stat-label">待结算</view>
+    </view>
+  </view>
+
+  <!-- Reward Explanation Card -->
+  <view class="reward-explain">
+    <view class="reward-explain-title">奖励规则</view>
+    <view class="reward-explain-row">
+      <view class="reward-explain-icon">1</view>
+      <view class="reward-explain-text">
+        <text class="reward-bold">分享海报</text>
+        <text> - 生成专属海报分享给好友</text>
+      </view>
+    </view>
+    <view class="reward-explain-row">
+      <view class="reward-explain-icon">2</view>
+      <view class="reward-explain-text">
+        <text class="reward-bold">好友下单</text>
+        <text> - 好友扫码进入小程序并下单</text>
+      </view>
+    </view>
+    <view class="reward-explain-row">
+      <view class="reward-explain-icon">3</view>
+      <view class="reward-explain-text">
+        <text class="reward-bold">获得奖励</text>
+        <text> - 好友订单完成后，你可赚取订单金额的</text>
+        <text class="reward-rate">2%~6%</text>
+      </view>
+    </view>
+    <view class="reward-explain-tip">会员等级越高，奖励比例越高。奖励可在「奖励提现」中提取。</view>
+  </view>
+
+  <!-- Withdraw Entry -->
+  <view class="withdraw-entry" bindtap="goToWithdraw">
+    <view class="withdraw-entry-left">
+      <text class="withdraw-label">可提现余额</text>
+      <text class="withdraw-amount">¥{{stats.totalEarnings}}</text>
+    </view>
+    <view class="withdraw-entry-btn">去提现 ></view>
+  </view>
+
+  <!-- Generate Poster Button -->
+  <view class="poster-btn-wrap">
+    <button class="generate-btn" bindtap="generatePoster" loading="{{generating}}">生成分享海报</button>
+  </view>
+
+  <!-- Hidden Canvas for Poster Generation -->
+  <canvas type="2d" id="posterCanvas" class="poster-canvas"></canvas>
+
+  <!-- Poster Preview Modal -->
+  <view class="poster-modal" wx:if="{{showPoster}}" bindtap="closePoster">
+    <view class="poster-modal-content" catchtap="">
+      <image class="poster-image" src="{{posterUrl}}" mode="widthFix"></image>
+      <view class="poster-actions">
+        <button class="poster-action-btn save-btn" bindtap="savePoster">保存到相册</button>
+        <button class="poster-action-btn share-btn" open-type="share">分享给好友</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Referral Records Section -->
+  <view class="records-section">
+    <view class="section-title">分享记录</view>
+
+    <!-- Empty State -->
+    <view class="empty-state" wx:if="{{records.length === 0 && !loading}}">
+      <image class="empty-icon" src="/images/empty.png" mode="aspectFit"></image>
+      <text class="empty-text">暂无分享记录</text>
+      <text class="empty-hint">分享海报给好友，好友下单后你自动获得奖励</text>
+    </view>
+
+    <!-- Record List -->
+    <view class="record-list" wx:if="{{records.length > 0}}">
+      <view class="record-item" wx:for="{{records}}" wx:key="_id">
+        <view class="record-left">
+          <image class="record-avatar" src="{{item.refereeAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+          <view class="record-info">
+            <view class="record-name">{{item.refereeName}}</view>
+            <view class="record-time">{{item.time}}</view>
+          </view>
+        </view>
+        <view class="record-right">
+          <view class="record-order-amount">好友消费 ¥{{item.orderAmount}}</view>
+          <view class="record-reward">奖励 +¥{{item.rewardAmount}}</view>
+          <view class="record-status status-{{item.status}}">
+            {{item.status === 'pending' ? '待结算' : item.status === 'settled' ? '已到账' : '已失效'}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Load More -->
+    <view class="load-more" wx:if="{{records.length > 0}}">
+      <view wx:if="{{hasMore}}" class="load-more-text" bindtap="loadMore">加载更多</view>
+      <view wx:else class="no-more-text">没有更多记录了</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,24 @@
+<wxs src="../../utils/price.wxs" module="price" />
+<!-- 免运费进度条 -->
+<view class="shipping-bar" wx:if="{{count > 0}}">
+  <view class="shipping-text" wx:if="{{isFreeShipping}}">已满免运费</view>
+  <view class="shipping-text" wx:else>再买 ¥{{price.yuan(remaining)}} 免运费</view>
+  <view class="shipping-progress">
+    <view class="shipping-progress-fill" style="width: {{progress}}%"></view>
+  </view>
+</view>
+<view class="cart-bar">
+  <view class="cart-left" bindtap="goCart">
+    <view class="cart-icon-area">
+      <text class="cart-icon">🛒</text>
+      <view class="badge" wx:if="{{count > 0}}">{{count > 99 ? '99+' : count}}</view>
+    </view>
+    <text class="cart-total" wx:if="{{count > 0}}">¥{{price.yuan(total)}}</text>
+    <text class="cart-empty" wx:else>购物车是空的</text>
+  </view>
+  <view class="cart-right">
+    <view class="checkout-btn {{count === 0 ? 'disabled' : ''}}" bindtap="goCheckout">
+      {{count > 0 ? '去结算' : '购物车是空的'}}
+    </view>
+  </view>
+</view>

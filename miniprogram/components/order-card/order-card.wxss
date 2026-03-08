@@ -1,0 +1,99 @@
+.order-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.order-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-id {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.status-tag {
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+}
+
+.status-pending {
+  background: rgba(243, 156, 18, 0.12);
+  color: #f39c12;
+}
+
+.status-paid {
+  background: rgba(52, 152, 219, 0.12);
+  color: #3498db;
+}
+
+.status-completed {
+  background: rgba(46, 204, 113, 0.12);
+  color: #2ecc71;
+}
+
+.status-cancelled {
+  background: rgba(153, 153, 153, 0.12);
+  color: #999;
+}
+
+.order-items {
+  font-size: 28rpx;
+  color: #333;
+  margin: 16rpx 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.order-amount {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+
+.order-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btn {
+  padding: 12rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  margin-left: 16rpx;
+  text-align: center;
+}
+
+.btn-cancel {
+  color: #999;
+  border: 1rpx solid #ccc;
+  background: transparent;
+}
+
+.btn-pay {
+  background: #1a3a5c;
+  color: #fff;
+}
+
+.btn-detail {
+  color: #1a3a5c;
+  border: 1rpx solid #1a3a5c;
+  background: transparent;
+}

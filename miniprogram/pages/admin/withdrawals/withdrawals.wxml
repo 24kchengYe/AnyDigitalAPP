@@ -1,0 +1,60 @@
+<view class="container">
+  <!-- Tab Filter -->
+  <view class="filter-tabs">
+    <view class="tab {{currentStatus === 'pending' ? 'active' : ''}}" bindtap="filterByStatus" data-status="pending">待审核</view>
+    <view class="tab {{currentStatus === 'approved' ? 'active' : ''}}" bindtap="filterByStatus" data-status="approved">已通过</view>
+    <view class="tab {{currentStatus === 'rejected' ? 'active' : ''}}" bindtap="filterByStatus" data-status="rejected">已拒绝</view>
+  </view>
+
+  <!-- Withdrawal List -->
+  <view class="withdrawal-list">
+    <block wx:for="{{withdrawals}}" wx:key="_id">
+      <view class="withdrawal-card">
+        <view class="card-header">
+          <view class="user-row">
+            <image class="user-avatar" src="{{item.userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+            <view class="user-info">
+              <text class="user-name">{{item.userInfo.nickName || '未知用户'}}</text>
+              <text class="user-phone" wx:if="{{item.userInfo.phone}}">{{item.userInfo.phone}}</text>
+            </view>
+          </view>
+          <text class="withdraw-status status-{{item.status}}">
+            {{item.status === 'pending' ? '待审核' : item.status === 'approved' ? '已通过' : '已拒绝'}}
+          </text>
+        </view>
+
+        <view class="card-body">
+          <view class="amount-row">
+            <text class="amount-label">提现金额</text>
+            <text class="amount-value">¥{{item.amount}}</text>
+          </view>
+          <view class="time-row">
+            <text class="time-label">申请时间</text>
+            <text class="time-value">{{item.applyTimeStr}}</text>
+          </view>
+          <view class="time-row" wx:if="{{item.handleTimeStr}}">
+            <text class="time-label">处理时间</text>
+            <text class="time-value">{{item.handleTimeStr}}</text>
+          </view>
+        </view>
+
+        <view class="card-actions" wx:if="{{item.status === 'pending'}}">
+          <view class="btn-reject" bindtap="rejectWithdraw" data-id="{{item._id}}">拒绝</view>
+          <view class="btn-approve" bindtap="approveWithdraw" data-id="{{item._id}}">通过</view>
+        </view>
+      </view>
+    </block>
+
+    <view class="empty-tip" wx:if="{{withdrawals.length === 0 && !loading}}">
+      <text>暂无提现申请</text>
+    </view>
+
+    <view class="loading-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <view class="no-more" wx:if="{{noMore && withdrawals.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,121 @@
+/* ========== Shipping Progress Bar ========== */
+.shipping-bar {
+  position: fixed;
+  bottom: 210rpx;
+  left: 20rpx;
+  right: 20rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 14rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+}
+
+.shipping-text {
+  font-size: 22rpx;
+  color: #666;
+  white-space: nowrap;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.shipping-progress {
+  flex: 1;
+  height: 8rpx;
+  background: #eee;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.shipping-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e74c3c, #27ae60);
+  border-radius: 4rpx;
+  transition: width 0.3s ease;
+}
+
+.cart-bar {
+  position: fixed;
+  bottom: 100rpx;
+  left: 20rpx;
+  right: 20rpx;
+  height: 96rpx;
+  border-radius: 48rpx;
+  background: #333;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10rpx 0 30rpx;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.cart-left {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+.cart-icon-area {
+  position: relative;
+}
+
+.cart-icon {
+  font-size: 44rpx;
+}
+
+.badge {
+  position: absolute;
+  top: -10rpx;
+  right: -14rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6rpx;
+  box-sizing: border-box;
+}
+
+.cart-total {
+  color: #fff;
+  font-size: 32rpx;
+  margin-left: 20rpx;
+  font-weight: bold;
+}
+
+.cart-empty {
+  color: #999;
+  font-size: 26rpx;
+  margin-left: 20rpx;
+}
+
+.cart-right {
+  display: flex;
+  align-items: center;
+}
+
+.checkout-btn {
+  background: #1a3a5c;
+  color: #fff;
+  height: 72rpx;
+  line-height: 72rpx;
+  padding: 0 40rpx;
+  border-radius: 36rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.checkout-btn.disabled {
+  background: #666;
+  pointer-events: none;
+}

@@ -1,0 +1,110 @@
+<wxs src="../../../utils/price.wxs" module="price" />
+<view class="container">
+  <!-- Status Filter Tabs -->
+  <view class="filter-tabs">
+    <view class="tab {{currentStatus === '' ? 'active' : ''}}" bindtap="filterByStatus" data-status="">全部</view>
+    <view class="tab {{currentStatus === 'pending' ? 'active' : ''}}" bindtap="filterByStatus" data-status="pending">待付款</view>
+    <view class="tab {{currentStatus === 'paid' ? 'active' : ''}}" bindtap="filterByStatus" data-status="paid">待发货</view>
+    <view class="tab {{currentStatus === 'shipped' ? 'active' : ''}}" bindtap="filterByStatus" data-status="shipped">已发货</view>
+    <view class="tab {{currentStatus === 'completed' ? 'active' : ''}}" bindtap="filterByStatus" data-status="completed">已完成</view>
+  </view>
+
+  <!-- Order List -->
+  <view class="order-list">
+    <block wx:for="{{orders}}" wx:key="_id">
+      <view class="order-card">
+        <view class="order-header">
+          <text class="order-id">订单号: {{item.outTradeNo || item.orderNo}}</text>
+          <text class="order-status status-{{item.status}}">
+            {{item.status === 'pending' ? '待付款' : item.status === 'paid' ? '待发货' : item.status === 'shipped' ? '已发货' : item.status === 'completed' ? '已完成' : '已取消'}}
+          </text>
+        </view>
+
+        <!-- Shipping Address -->
+        <view class="shipping-info" wx:if="{{item.shippingInfo}}">
+          <view class="shipping-row">
+            <text class="shipping-icon">📍</text>
+            <view class="shipping-detail">
+              <text class="shipping-name">{{item.shippingInfo.name}}  {{item.shippingInfo.phone}}</text>
+              <text class="shipping-addr">{{item.shippingInfo.province}}{{item.shippingInfo.city}}{{item.shippingInfo.district}} {{item.shippingInfo.address}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- Order Items -->
+        <view class="order-items">
+          <view class="order-item" wx:for="{{item.items}}" wx:for-item="dish" wx:key="dishId">
+            <text class="item-name">{{dish.name}}</text>
+            <text class="item-qty">x{{dish.quantity}}</text>
+            <text class="item-price">¥{{price.yuan(dish.price)}}</text>
+          </view>
+        </view>
+
+        <!-- Express Info (for shipped/completed) -->
+        <view class="express-info" wx:if="{{item.expressNo}}">
+          <text class="express-label">快递：{{item.expressCompany}}</text>
+          <view class="express-no-row">
+            <text class="express-no">{{item.expressNo}}</text>
+            <text class="btn-copy-no" data-no="{{item.expressNo}}" bindtap="copyExpressNo">复制</text>
+          </view>
+        </view>
+
+        <view class="order-footer">
+          <text class="order-time">{{item.createTimeStr}}</text>
+          <text class="order-total">合计: ¥{{item.totalPrice || (item.actualFee / 100)}}</text>
+        </view>
+
+        <view class="order-actions">
+          <view class="btn btn-detail" bindtap="viewDetail" data-id="{{item._id}}">查看详情</view>
+          <view class="btn btn-ship" wx:if="{{item.status === 'paid'}}" bindtap="openShipModal" data-id="{{item._id}}">发货</view>
+          <view class="btn btn-complete" wx:if="{{item.status === 'shipped'}}" bindtap="completeOrder" data-id="{{item._id}}">标记完成</view>
+        </view>
+      </view>
+    </block>
+
+    <view class="empty-tip" wx:if="{{orders.length === 0 && !loading}}">
+      <text>暂无订单数据</text>
+    </view>
+
+    <view class="loading-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <view class="no-more" wx:if="{{noMore && orders.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+  </view>
+</view>
+
+<!-- Ship Modal -->
+<view class="modal-mask" wx:if="{{showShipModal}}" bindtap="closeShipModal"></view>
+<view class="modal-dialog" wx:if="{{showShipModal}}">
+  <view class="modal-title">填写快递信息</view>
+
+  <view class="modal-form">
+    <view class="modal-row">
+      <text class="modal-label">快递公司</text>
+      <picker range="{{expressCompanies}}" value="{{expressCompanyIndex}}" bindchange="onExpressCompanyChange">
+        <view class="modal-picker">
+          <text>{{expressCompanies[expressCompanyIndex]}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="modal-row">
+      <text class="modal-label">快递单号</text>
+      <input
+        class="modal-input"
+        placeholder="请输入快递单号"
+        value="{{expressNo}}"
+        bindinput="onExpressNoInput"
+      />
+    </view>
+  </view>
+
+  <view class="modal-buttons">
+    <view class="modal-btn modal-btn-cancel" bindtap="closeShipModal">取消</view>
+    <view class="modal-btn modal-btn-confirm" bindtap="confirmShip">确认发货</view>
+  </view>
+</view>

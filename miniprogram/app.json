@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/menu/menu",
+    "pages/cart/cart",
+    "pages/order/order",
+    "pages/order-list/order-list",
+    "pages/member/member",
+    "pages/profile/profile",
+    "pages/coupons/coupons",
+    "pages/referral/referral",
+    "pages/withdraw/withdraw",
+    "pages/group-buy/group-buy",
+    "pages/crab-card/send",
+    "pages/crab-card/redeem",
+    "pages/admin/dashboard/dashboard",
+    "pages/admin/orders/orders",
+    "pages/admin/members/members",
+    "pages/admin/dishes/dishes",
+    "pages/admin/withdrawals/withdrawals",
+    "pages/admin/settings/settings"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1a3a5c",
+    "navigationBarTitleText": "十脚怪兽",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f5f5"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#1a3a5c",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/menu/menu",
+        "text": "商城",
+        "iconPath": "images/tab-menu.png",
+        "selectedIconPath": "images/tab-menu-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "cloud": true
+}

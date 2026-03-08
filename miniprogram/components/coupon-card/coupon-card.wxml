@@ -1,0 +1,23 @@
+<view class="coupon-card {{coupon.status !== 'unused' ? 'coupon-disabled' : ''}}" bindtap="onSelect">
+  <view class="coupon-left {{coupon.status !== 'unused' ? 'left-disabled' : ''}}">
+    <view class="coupon-amount">
+      <text class="yen-prefix">¥</text>
+      <text class="amount-value">{{coupon.amount}}</text>
+    </view>
+    <view class="coupon-label">消费券</view>
+  </view>
+  <view class="coupon-right">
+    <view class="coupon-info">
+      <text class="coupon-source">{{coupon.source === 'card' ? '开卡赠送' : '推荐奖励'}}</text>
+      <text class="coupon-expiry">有效期至 {{coupon.expiry}}</text>
+    </view>
+    <view class="coupon-action">
+      <view wx:if="{{selectable}}" class="radio-circle {{selected ? 'radio-checked' : ''}}">
+        <view wx:if="{{selected}}" class="radio-dot"></view>
+      </view>
+      <view wx:elif="{{coupon.status === 'unused'}}" class="use-btn" catchtap="onUse">立即使用</view>
+      <view wx:elif="{{coupon.status === 'used'}}" class="status-text used">已使用</view>
+      <view wx:else class="status-text expired">已过期</view>
+    </view>
+  </view>
+</view>

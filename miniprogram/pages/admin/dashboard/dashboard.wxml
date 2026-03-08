@@ -1,0 +1,101 @@
+<view class="container">
+  <!-- Admin Navigation Bar -->
+  <view class="nav-grid">
+    <view class="nav-item" bindtap="goToOrders">
+      <view class="nav-icon orders-icon">
+        <text class="icon-text">&#xe6b2;</text>
+      </view>
+      <text class="nav-label">订单管理</text>
+    </view>
+    <view class="nav-item" bindtap="goToMembers">
+      <view class="nav-icon members-icon">
+        <text class="icon-text">&#xe6a3;</text>
+      </view>
+      <text class="nav-label">会员管理</text>
+    </view>
+    <view class="nav-item" bindtap="goToDishes">
+      <view class="nav-icon dishes-icon">
+        <text class="icon-text">&#xe6a8;</text>
+      </view>
+      <text class="nav-label">商品管理</text>
+    </view>
+    <view class="nav-item" bindtap="goToWithdrawals">
+      <view class="nav-icon withdrawals-icon">
+        <text class="icon-text">&#xe6b5;</text>
+      </view>
+      <text class="nav-label">提现审批</text>
+    </view>
+    <view class="nav-item" bindtap="goToSettings">
+      <view class="nav-icon settings-icon">
+        <text class="icon-text">&#xe6a6;</text>
+      </view>
+      <text class="nav-label">系统设置</text>
+    </view>
+    <view class="nav-item active">
+      <view class="nav-icon dashboard-icon">
+        <text class="icon-text">&#xe6b0;</text>
+      </view>
+      <text class="nav-label">数据概览</text>
+    </view>
+  </view>
+
+  <!-- Stats Cards Grid -->
+  <view class="stats-grid">
+    <view class="stat-card">
+      <text class="stat-label">总用户数</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#3498db;">&#x1F464;</text>
+        <text class="stat-value">{{stats.totalUsers || 0}}</text>
+      </view>
+    </view>
+    <view class="stat-card">
+      <text class="stat-label">会员数</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#1a3a5c;">&#x1F451;</text>
+        <text class="stat-value">{{stats.memberCount || 0}}</text>
+      </view>
+    </view>
+    <view class="stat-card">
+      <text class="stat-label">今日订单</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#2ecc71;">&#x1F4CB;</text>
+        <text class="stat-value">{{stats.todayOrders || 0}}</text>
+      </view>
+    </view>
+    <view class="stat-card">
+      <text class="stat-label">今日营收</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#f39c12;">&#x00A5;</text>
+        <text class="stat-value">{{stats.todayRevenue || '0.00'}}</text>
+      </view>
+    </view>
+    <view class="stat-card">
+      <text class="stat-label">累计订单</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#9b59b6;">&#x1F4E6;</text>
+        <text class="stat-value">{{stats.totalOrders || 0}}</text>
+      </view>
+    </view>
+    <view class="stat-card">
+      <text class="stat-label">累计营收</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#e67e22;">&#x00A5;</text>
+        <text class="stat-value">{{stats.totalRevenue || '0.00'}}</text>
+      </view>
+    </view>
+    <view class="stat-card">
+      <text class="stat-label">推荐总数</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#1abc9c;">&#x1F517;</text>
+        <text class="stat-value">{{stats.totalReferrals || 0}}</text>
+      </view>
+    </view>
+    <view class="stat-card">
+      <text class="stat-label">推荐奖励</text>
+      <view class="stat-value-row">
+        <text class="stat-icon" style="color:#1a3a5c;">&#x1F381;</text>
+        <text class="stat-value">{{stats.totalReferralRewards || '0.00'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

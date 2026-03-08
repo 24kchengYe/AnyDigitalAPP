@@ -1,0 +1,81 @@
+<!-- pages/index/index.wxml -->
+<view class="page">
+
+  <!-- Top Banner -->
+  <view class="banner">
+    <image
+      class="banner-img"
+      src="{{config.bannerImage || '/assets/images/banner-placeholder.png'}}"
+      mode="aspectFill"
+    />
+    <view class="banner-overlay">
+      <text class="shop-name">{{shopInfo.name || '十脚怪兽'}}</text>
+      <text class="shop-slogan">{{shopInfo.slogan || '高淳螃蟹·产地直发'}}</text>
+    </view>
+  </view>
+
+  <!-- Shop Info Card -->
+  <view class="shop-info-card">
+    <view class="info-row" bindtap="callPhone">
+      <text class="info-icon">📞</text>
+      <text class="info-text">客服电话：{{shopInfo.phone || '400-000-0000'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-icon">🚚</text>
+      <text class="info-text">顺丰冷链 48小时送达</text>
+    </view>
+  </view>
+
+  <!-- Hot Products Section -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">热门推荐</text>
+    </view>
+    <view class="dish-grid">
+      <dish-card
+        wx:for="{{hotDishes}}"
+        wx:key="_id"
+        dish="{{item}}"
+      />
+    </view>
+    <navigator url="/pages/menu/menu" class="view-menu-btn">
+      <text>查看全部商品</text>
+    </navigator>
+  </view>
+
+  <!-- Member Promotion Banner -->
+  <view
+    class="member-promo"
+    wx:if="{{userInfo && !userInfo.isMember}}"
+  >
+    <navigator url="/pages/member/member" class="promo-link">
+      <view class="promo-content">
+        <text class="promo-title">开通会员</text>
+        <text class="promo-desc">20元开通会员，送一只螃蟹 + 下单立享折扣</text>
+      </view>
+      <text class="promo-arrow">›</text>
+    </navigator>
+  </view>
+
+  <!-- 新人优惠券弹窗 -->
+  <view class="popup-mask" wx:if="{{showNewUserPopup}}" bindtap="closePopup">
+    <view class="popup-card" catchtap="">
+      <view class="popup-close" bindtap="closePopup">x</view>
+      <view class="popup-badge">新人专享</view>
+      <view class="popup-discount">8折</view>
+      <view class="popup-subtitle">全场商品立享优惠</view>
+      <view class="popup-timer">限时 24 小时内使用</view>
+      <view class="popup-btn" bindtap="goShop">立即选购</view>
+    </view>
+  </view>
+
+  <!-- 企业团购入口 -->
+  <view class="group-buy-entry" bindtap="goGroupBuy">
+    <view class="group-buy-left">
+      <text class="group-buy-title">企业团购</text>
+      <text class="group-buy-desc">中秋/年节送礼，量大从优</text>
+    </view>
+    <text class="group-buy-arrow">></text>
+  </view>
+
+</view>

@@ -1,0 +1,13 @@
+/**
+ * 价格格式化 WXS 模块
+ * 数据库存储价格单位为"分"，显示时转换为"元"
+ */
+var yuan = function(fen) {
+  if (!fen && fen !== 0) return '0.00'
+  var n = fen / 100
+  return n.toFixed(2)
+}
+
+module.exports = {
+  yuan: yuan
+}

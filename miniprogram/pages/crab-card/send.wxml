@@ -1,0 +1,36 @@
+<wxs src="../../utils/price.wxs" module="price" />
+<view class="page">
+  <view class="header">
+    <view class="header-title">蟹卡送礼</view>
+    <view class="header-desc">购买蟹卡，分享给好友，凭码提货</view>
+  </view>
+
+  <!-- Card List -->
+  <view class="card-list" wx:if="{{cards.length > 0}}">
+    <view class="gift-card {{item.status === 'redeemed' ? 'used' : ''}}" wx:for="{{cards}}" wx:key="_id">
+      <view class="gift-card-left">
+        <view class="gift-card-name">{{item.dishName}}</view>
+        <view class="gift-card-price">¥{{price.yuan(item.dishPrice)}}</view>
+        <view class="gift-card-code">兑换码: {{item.redeemCode}}</view>
+      </view>
+      <view class="gift-card-right">
+        <view class="gift-card-status {{item.status}}">
+          {{item.status === 'active' ? '待赠送' : '已兑换'}}
+        </view>
+        <view
+          class="gift-card-btn"
+          wx:if="{{item.status === 'active'}}"
+          data-code="{{item.redeemCode}}"
+          data-name="{{item.dishName}}"
+          bindtap="shareCard"
+        >送给好友</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty" wx:else>
+    <text class="empty-text">还没有蟹卡</text>
+    <view class="empty-btn" bindtap="goShop">去购买蟹卡</view>
+  </view>
+</view>

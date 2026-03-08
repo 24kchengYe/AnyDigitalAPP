@@ -1,0 +1,95 @@
+<view class="container">
+  <!-- 基本信息 -->
+  <view class="form-section">
+    <view class="section-title">基本信息</view>
+    <view class="form-row">
+      <text class="form-label">店铺名称</text>
+      <input class="form-input" placeholder="十脚怪兽" value="{{config.restaurantName}}" bindinput="onInput" data-field="restaurantName" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">发货地址</text>
+      <input class="form-input" placeholder="江苏省南京市高淳区" value="{{config.restaurantAddress}}" bindinput="onInput" data-field="restaurantAddress" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">联系电话</text>
+      <input class="form-input" type="number" placeholder="请输入联系电话" value="{{config.contactPhone}}" bindinput="onInput" data-field="contactPhone" />
+    </view>
+  </view>
+
+  <!-- 会员设置 -->
+  <view class="form-section">
+    <view class="section-title">会员设置</view>
+    <view class="form-row">
+      <text class="form-label">开通价格</text>
+      <view class="input-with-unit">
+        <input class="form-input" type="digit" placeholder="20" value="{{config.membershipPrice}}" bindinput="onInput" data-field="membershipPrice" />
+        <text class="input-unit">元</text>
+      </view>
+    </view>
+    <view class="form-row">
+      <text class="form-label">赠蟹券面值</text>
+      <view class="input-with-unit">
+        <input class="form-input" type="digit" placeholder="199" value="{{config.freeCrabCouponValue}}" bindinput="onInput" data-field="freeCrabCouponValue" />
+        <text class="input-unit">元</text>
+      </view>
+    </view>
+    <view class="form-row">
+      <text class="form-label">最低提现</text>
+      <view class="input-with-unit">
+        <input class="form-input" type="digit" placeholder="10" value="{{config.minWithdrawAmount}}" bindinput="onInput" data-field="minWithdrawAmount" />
+        <text class="input-unit">元</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 会员等级配置 -->
+  <view class="form-section">
+    <view class="section-title">会员等级配置</view>
+    <view class="level-table">
+      <view class="level-header">
+        <text class="lv-col">等级</text>
+        <text class="th-col">累计消费(元)</text>
+        <text class="sd-col">自购折扣(%)</text>
+        <text class="rr-col">推荐返现(%)</text>
+      </view>
+      <view class="level-row" wx:for="{{memberLevels}}" wx:key="level">
+        <text class="lv-col lv-tag">Lv.{{item.level}}</text>
+        <view class="th-col">
+          <input
+            wx:if="{{item.level > 1}}"
+            class="level-input"
+            type="digit"
+            value="{{item.threshold}}"
+            bindinput="onLevelInput"
+            data-index="{{index}}"
+            data-field="threshold"
+          />
+          <text wx:else class="level-fixed">0 (开通即享)</text>
+        </view>
+        <view class="sd-col">
+          <input class="level-input" type="digit" value="{{item.selfDiscount}}" bindinput="onLevelInput" data-index="{{index}}" data-field="selfDiscount" />
+        </view>
+        <view class="rr-col">
+          <input class="level-input" type="digit" value="{{item.referralRate}}" bindinput="onLevelInput" data-index="{{index}}" data-field="referralRate" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 品牌设置 -->
+  <view class="form-section">
+    <view class="section-title">品牌设置</view>
+    <view class="form-row logo-row">
+      <text class="form-label">品牌Logo</text>
+      <view class="logo-upload" bindtap="uploadLogo">
+        <image wx:if="{{config.logoUrl}}" class="logo-preview" src="{{config.logoUrl}}" mode="aspectFill"></image>
+        <view wx:else class="upload-placeholder">
+          <text class="upload-icon">+</text>
+          <text class="upload-text">上传Logo</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="save-btn" bindtap="saveConfig">保存设置</view>
+</view>

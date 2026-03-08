@@ -1,0 +1,63 @@
+.page { background: #f5f5f5; min-height: 100vh; }
+
+.header {
+  background: linear-gradient(135deg, #1a3a5c, #0d2137);
+  padding: 48rpx 32rpx;
+  color: #fff;
+  text-align: center;
+}
+.header-title { font-size: 40rpx; font-weight: bold; }
+.header-desc { font-size: 24rpx; margin-top: 8rpx; opacity: 0.8; }
+
+.card-list { padding: 24rpx; }
+
+.gift-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  border-left: 8rpx solid #e74c3c;
+}
+.gift-card.used {
+  border-left-color: #ccc;
+  opacity: 0.6;
+}
+
+.gift-card-left { flex: 1; }
+.gift-card-name { font-size: 30rpx; font-weight: 600; color: #333; }
+.gift-card-price { font-size: 26rpx; color: #e74c3c; margin-top: 6rpx; }
+.gift-card-code {
+  font-size: 24rpx; color: #999; margin-top: 8rpx;
+  font-family: monospace; letter-spacing: 2rpx;
+}
+
+.gift-card-right {
+  display: flex; flex-direction: column; align-items: center;
+  flex-shrink: 0; margin-left: 16rpx;
+}
+.gift-card-status {
+  font-size: 22rpx; padding: 4rpx 16rpx; border-radius: 12rpx;
+  margin-bottom: 8rpx;
+}
+.gift-card-status.active { background: #e8f5e9; color: #27ae60; }
+.gift-card-status.redeemed { background: #f0f0f0; color: #999; }
+
+.gift-card-btn {
+  background: #e74c3c; color: #fff;
+  font-size: 24rpx; padding: 8rpx 20rpx;
+  border-radius: 20rpx; font-weight: 600;
+}
+
+.empty {
+  text-align: center; padding: 120rpx 0;
+}
+.empty-text { font-size: 28rpx; color: #999; }
+.empty-btn {
+  display: inline-block; margin-top: 24rpx;
+  background: #1a3a5c; color: #fff; padding: 16rpx 48rpx;
+  border-radius: 32rpx; font-size: 28rpx;
+}

@@ -1,0 +1,65 @@
+<view class="container">
+  <!-- Member Count Summary -->
+  <view class="summary-bar">
+    <view class="summary-item">
+      <text class="summary-value">{{totalMembers}}</text>
+      <text class="summary-label">总会员数</text>
+    </view>
+    <view class="summary-divider"></view>
+    <view class="summary-item">
+      <text class="summary-value">{{newMembersToday}}</text>
+      <text class="summary-label">今日新增</text>
+    </view>
+    <view class="summary-divider"></view>
+    <view class="summary-item">
+      <text class="summary-value">{{newMembersMonth}}</text>
+      <text class="summary-label">本月新增</text>
+    </view>
+  </view>
+
+  <!-- Member List -->
+  <view class="member-list">
+    <block wx:for="{{members}}" wx:key="_id">
+      <view class="member-card">
+        <view class="member-main">
+          <image class="member-avatar" src="{{item.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+          <view class="member-info">
+            <view class="member-name-row">
+              <text class="member-name">{{item.nickName || '未知用户'}}</text>
+              <text class="member-badge">会员</text>
+            </view>
+            <text class="member-phone" wx:if="{{item.phone}}">手机: {{item.phone}}</text>
+            <text class="member-date">加入时间: {{item.memberSinceStr}}</text>
+          </view>
+        </view>
+
+        <view class="member-details">
+          <view class="detail-item">
+            <text class="detail-label">累计订单</text>
+            <text class="detail-value">{{item.totalOrders || 0}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">累计消费</text>
+            <text class="detail-value price">¥{{item.totalSpent || '0.00'}}</text>
+          </view>
+          <view class="detail-item" wx:if="{{item.referrerName}}">
+            <text class="detail-label">推荐人</text>
+            <text class="detail-value referrer">{{item.referrerName}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view class="empty-tip" wx:if="{{members.length === 0 && !loading}}">
+      <text>暂无会员数据</text>
+    </view>
+
+    <view class="loading-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <view class="no-more" wx:if="{{noMore && members.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+  </view>
+</view>

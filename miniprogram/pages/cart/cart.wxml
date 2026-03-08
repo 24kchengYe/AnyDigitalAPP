@@ -1,0 +1,48 @@
+<wxs src="../../utils/price.wxs" module="price" />
+<view class="cart-page">
+  <!-- Empty State -->
+  <view class="empty-state" wx:if="{{cartItems.length === 0}}">
+    <image class="empty-icon" src="/images/empty-cart.png" mode="aspectFit"></image>
+    <text class="empty-text">购物车是空的</text>
+    <button class="btn-go-menu" bindtap="goMenu">去点餐</button>
+  </view>
+
+  <!-- Cart Items List -->
+  <view class="cart-list" wx:if="{{cartItems.length > 0}}">
+    <view class="cart-item" wx:for="{{cartItems}}" wx:key="_id">
+      <image class="item-image" src="{{item.imageUrl || item.image}}" mode="aspectFill"></image>
+
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-price">¥{{price.yuan(item.price)}}</view>
+
+        <view class="item-bottom">
+          <view class="qty-controls">
+            <view class="btn-minus" data-id="{{item._id}}" bindtap="reduceQty">-</view>
+            <view class="qty-text">{{item.quantity}}</view>
+            <view class="btn-plus" data-id="{{item._id}}" bindtap="addQty">+</view>
+          </view>
+          <view class="item-subtotal">¥{{price.yuan(item.subtotal)}}</view>
+        </view>
+      </view>
+
+      <!-- Delete Icon -->
+      <view class="btn-delete" data-id="{{item._id}}" bindtap="removeItem">
+        <text class="delete-icon">×</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Bottom Spacer -->
+  <view class="bottom-spacer" wx:if="{{cartItems.length > 0}}"></view>
+
+  <!-- Fixed Bottom Bar -->
+  <view class="bottom-bar" wx:if="{{cartItems.length > 0}}">
+    <view class="bar-left">
+      <text class="total-label">合计：</text>
+      <text class="total-price">¥{{price.yuan(totalPrice)}}</text>
+      <text class="total-count">共{{totalCount}}件</text>
+    </view>
+    <view class="btn-checkout" bindtap="goCheckout">去结算</view>
+  </view>
+</view>

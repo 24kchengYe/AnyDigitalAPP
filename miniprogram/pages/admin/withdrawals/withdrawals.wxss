@@ -1,0 +1,188 @@
+.container {
+  padding: 0 24rpx 24rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+  display: flex;
+  background: #fff;
+  margin: 0 -24rpx 24rpx;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1rpx solid #eee;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.tab.active {
+  color: #1a3a5c;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  background: #1a3a5c;
+  border-radius: 3rpx;
+}
+
+/* Withdrawal Cards */
+.withdrawal-list {
+  padding-bottom: 24rpx;
+}
+
+.withdrawal-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  background: #f0f0f0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.user-phone {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.withdraw-status {
+  font-size: 24rpx;
+  font-weight: 600;
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.status-pending {
+  color: #f39c12;
+  background: #fef9e7;
+}
+
+.status-approved {
+  color: #2ecc71;
+  background: #eafaf1;
+}
+
+.status-rejected {
+  color: #e74c3c;
+  background: #fdecea;
+}
+
+/* Card Body */
+.card-body {
+  margin-bottom: 16rpx;
+}
+
+.amount-row,
+.time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.amount-label,
+.time-label {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.amount-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+.time-value {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* Action Buttons */
+.card-actions {
+  display: flex;
+  gap: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.btn-reject,
+.btn-approve {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 0;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.btn-reject {
+  color: #e74c3c;
+  background: #fff;
+  border: 2rpx solid #e74c3c;
+}
+
+.btn-approve {
+  color: #fff;
+  background: #2ecc71;
+  border: 2rpx solid #2ecc71;
+}
+
+/* Empty & Loading States */
+.empty-tip,
+.loading-more,
+.no-more {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

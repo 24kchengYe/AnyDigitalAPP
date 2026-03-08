@@ -1,0 +1,141 @@
+<!-- pages/profile/profile.wxml -->
+<view class="page">
+
+  <!-- User Info Header -->
+  <view class="header">
+    <view class="avatar-wrapper">
+      <!-- Avatar with choose-avatar button for setting profile -->
+      <button
+        wx:if="{{!userInfo.avatarUrl}}"
+        class="avatar-btn"
+        open-type="chooseAvatar"
+        bind:chooseavatar="onChooseAvatar"
+      >
+        <view class="avatar avatar-default"></view>
+      </button>
+      <button
+        wx:else
+        class="avatar-btn"
+        open-type="chooseAvatar"
+        bind:chooseavatar="onChooseAvatar"
+      >
+        <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      </button>
+    </view>
+
+    <view class="user-name-row">
+      <block wx:if="{{userInfo.nickName}}">
+        <text class="nickname">{{userInfo.nickName}}</text>
+        <view class="member-badge" wx:if="{{userInfo.isMember}}">
+          <text class="badge-text">会员</text>
+        </view>
+      </block>
+      <block wx:else>
+        <input
+          class="nickname-input"
+          type="nickname"
+          placeholder="点击设置头像昵称"
+          bindinput="onInputNickname"
+          bindblur="saveProfile"
+        />
+      </block>
+    </view>
+  </view>
+
+  <!-- Stats Row -->
+  <view class="stats-card">
+    <view class="stat-item" bindtap="goToCoupons">
+      <text class="stat-num">{{couponCount || 0}}</text>
+      <text class="stat-label">优惠券</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item" bindtap="goToWithdraw">
+      <text class="stat-num stat-num-highlight">{{stats.balance || '0.00'}}元</text>
+      <text class="stat-label">奖励余额</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item" bindtap="goToReferral">
+      <text class="stat-num">{{stats.referralCount || 0}}</text>
+      <text class="stat-label">推荐好友</text>
+    </view>
+  </view>
+
+  <!-- Reward Summary Card -->
+  <view class="reward-card" bindtap="goToReferral">
+    <view class="reward-card-badge">!</view>
+    <view class="reward-card-left">
+      <view class="reward-card-title">分享赚钱</view>
+      <view class="reward-card-desc">推荐好友下单，最高赚 <text class="reward-card-rate">6%</text> 奖励金</view>
+    </view>
+    <view class="reward-card-right">
+      <text class="reward-card-amount">已赚 ¥{{stats.totalEarnings || '0.00'}}</text>
+      <view class="reward-card-btn">去赚钱 ></view>
+    </view>
+  </view>
+
+  <!-- Menu List -->
+  <view class="menu-list">
+    <navigator url="/pages/order-list/order-list" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">📋</text>
+      <text class="menu-title">我的订单</text>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <navigator url="/pages/coupons/coupons" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">🎫</text>
+      <text class="menu-title">我的优惠券</text>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <navigator url="/pages/crab-card/send" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">🦀</text>
+      <text class="menu-title">蟹卡送礼</text>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <navigator url="/pages/crab-card/redeem" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">🎁</text>
+      <text class="menu-title">蟹卡兑换</text>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <navigator url="/pages/group-buy/group-buy" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">🏢</text>
+      <text class="menu-title">企业团购</text>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <navigator url="/pages/member/member" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">👑</text>
+      <text class="menu-title">{{userInfo.isMember ? '会员中心' : '成为会员'}}</text>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <navigator url="/pages/referral/referral" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">🎁</text>
+      <text class="menu-title">推荐有奖</text>
+      <view class="menu-badge" wx:if="{{stats.pendingReward > 0}}">待结算 ¥{{stats.pendingReward}}</view>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <navigator url="/pages/withdraw/withdraw" class="menu-item" hover-class="menu-item-hover">
+      <text class="menu-icon">💰</text>
+      <text class="menu-title">奖励提现</text>
+      <view class="menu-badge-gold" wx:if="{{stats.balance > 0}}">¥{{stats.balance}}</view>
+      <text class="menu-arrow">›</text>
+    </navigator>
+
+    <!-- Admin entry - only visible for admins -->
+    <navigator
+      wx:if="{{userInfo.isAdmin}}"
+      url="/pages/admin/dashboard/dashboard"
+      class="menu-item"
+      hover-class="menu-item-hover"
+    >
+      <text class="menu-icon">⚙️</text>
+      <text class="menu-title">商家后台</text>
+      <text class="menu-arrow">›</text>
+    </navigator>
+  </view>
+
+</view>
